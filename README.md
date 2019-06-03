@@ -13,4 +13,4 @@ __browsermob-proxy__ python library https://pypi.org/project/browsermob-proxy/ t
 To analyze network traffic reported in the HAR file we use __haralyzer__ python library https://pypi.org/project/haralyzer/.
 
     from haralyzer import HarParser
-We extract the result into a program report file.
+We extract the results into a program report file.
