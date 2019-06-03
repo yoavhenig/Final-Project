@@ -2,7 +2,7 @@
 ### Computer Science final project
 ##### Uriel Fluss, Levi Dworkin, Ori Moldovan, Yoav Henig
 <br />
-Measuring QUIC - google new protocol performance compare to known protocols (h2..).<br />
+Measuring QUIC - google new protocol performance compare to known protocols (h2).<br />
 <br />
 We use *__selenium__* python library https://pypi.org/project/selenium/ to open chrome and navigate through the internet.
 
