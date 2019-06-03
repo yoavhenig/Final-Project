@@ -1,0 +1,10 @@
+Total measurments:
+  - Total time (from the moment the request is sent until the request finished loading)
+  - Total number of requests that come with your request
+  - Total weight of the request including the requests that came with it
+
+Things to measure:
+ - Measure on various file sizes (pictures, videos, streaming)
+ - Package sizes
+ - Package loss
+ - 
