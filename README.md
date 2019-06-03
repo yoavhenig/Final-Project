@@ -4,8 +4,7 @@
 <br />
 Measuring QUIC - google new protocol performance compare to known protocols (h2..).<br />
 <br />
-We use
-__selenium__ python library https://pypi.org/project/selenium/ to open chrome and navigate through the internet.
+We use __selenium__ python library https://pypi.org/project/selenium/ to open chrome and navigate through the internet.
 
     from selenium import webdriver
 __browsermob-proxy__ python library https://pypi.org/project/browsermob-proxy/ to export the sniffing data into HAR file.<br />
