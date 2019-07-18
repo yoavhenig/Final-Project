@@ -6,6 +6,7 @@ import csv
 
 RUN_TIME = 5
 
+# google-chrome --remote-debugging-port=9222 --headless (--incognito)
 
 def har_analyzer(file, writer):
     path = os.path.join('youtube_results',file)
@@ -19,7 +20,7 @@ def har_analyzer(file, writer):
         max_time = 0
         min_time = float(page.entries[0]['startedDateTime'][17:23]) * 1000
         for entry in page.entries:
-            total_weight += entry['response']['bodySize']
+            total_weight += entry['response']['content']['size']
             endTime = entry['time'] + float(entry['startedDateTime'][17:23]) * 1000
             if endTime > max_time:
                 max_time = endTime
