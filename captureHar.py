@@ -35,12 +35,18 @@ def har_analyzer(file, writer):
 
 
 def run_selenium():
+
+    if not os.path.exists('youtube_results'):
+        print("creating directory")
+        os.makedirs('youtube_results')
+
+    folder = 'youtube_results'
     harCap = "chrome-har-capturer -o "
-    data_folder = os.path.join("youtube_results")
     website = " https://youtube.com"
-    for i in range(1,RUN_TIME):
+    for i in range(0,RUN_TIME):
         file = "/res_{}.har".format(i)
-        os.system(harCap+data_folder+file+website)
+        os.system(harCap+folder+file+website)
+        print(harCap+file+website)
     print("finished successfully")
 
 # -------------------------------------******************------------------------------#
