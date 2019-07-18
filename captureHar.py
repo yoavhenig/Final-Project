@@ -1,11 +1,13 @@
 import time
 import json
 import os
+import subprocess
 from haralyzer import HarParser
 import csv
 
-RUN_TIME = 5
-
+RUN_TIME = 2
+CHROME_TYPE = "google-chrome --remote-debugging-port=9222"
+# "google-chrome --remote-debugging-port=9222 -incognito" use this for incognito
 # google-chrome --remote-debugging-port=9222 --headless (--incognito)
 
 def har_analyzer(file, writer):
@@ -14,10 +16,11 @@ def har_analyzer(file, writer):
         har_parser = HarParser(json.loads(f.read()))
     requests = 0
     total_weight = 0
+    max_time = 0
+    min_time = 0
 
     for page in har_parser.pages:
         requests += page.entries.__len__()
-        max_time = 0
         min_time = float(page.entries[0]['startedDateTime'][17:23]) * 1000
         for entry in page.entries:
             total_weight += entry['response']['content']['size']
@@ -35,8 +38,9 @@ def har_analyzer(file, writer):
     writer.writerow([file, requests, total_time, total_weight])
 
 
-def run_selenium():
-
+def run_har_capture():
+    browserProcess = subprocess.Popen(CHROME_TYPE, stdout=subprocess.PIPE, shell=True)
+    time.sleep(3)
     if not os.path.exists('youtube_results'):
         print("creating directory")
         os.makedirs('youtube_results')
@@ -61,7 +65,7 @@ def main():
     writer = csv.writer(summary)
     writer.writerow(headers)
 
-    run_selenium()
+    run_har_capture()
     for filename in os.listdir('youtube_results'):
         har_analyzer(filename, writer)
 
