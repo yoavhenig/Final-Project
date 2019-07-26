@@ -1,75 +1,64 @@
 import os
+import glob
 import csv
-from builtins import print
 import numpy as np
 import matplotlib.pyplot as plt
 
-folderPath = os.path.dirname(os.path.abspath(__file__))+"\\"
-# folderPath = "C:\\Users\\Ori\\Desktop\\chromedriver\\1\\"
-scenarioName = []
-totalScenarioRequest = []
-totalScenarioTime = []
-totalScenarioWeight = []
-filesCounter = 0
-directory = os.fsencode(folderPath)
-for file in os.listdir(directory):
-    filesCounter += 1
-    filename = os.fsdecode(file)
-    scenarioName.append(filename)
-    if filename != "FolderIterator.py":
-        fileToGraph = csv.reader(open(folderPath + filename))
+PATH = 'youtube_results'
+
+def getResult(file):
+    with open(file, "r", encoding="utf-8", errors="ignore")as f:
+        fileToGraph = csv.reader(f)
         data = [row for row in fileToGraph]
-        fileToGraph = csv.reader(open(folderPath + filename))
-        row_count = sum(1 for row in fileToGraph)  # represent the amount of rows in the csv file
+        row_count = len(data)  # represent the amount of rows in the csv file
         totalRequest = 0
         totalTime = 0
         totalWeight = 0
-        for i in range(1, (row_count - 1)):
+        for i in range(1, row_count-1):
             totalRequest += float(data[i][1])
             totalTime += float(data[i][2])
             totalWeight += float(data[i][3])
-        totalRequest = totalRequest / (row_count - 2)
-        totalWeight = totalWeight / (row_count - 2)
-        totalTime = totalTime / (row_count - 2)
-        totalScenarioRequest.append(totalRequest)
-        totalScenarioTime.append(totalTime)
-        totalScenarioWeight.append(totalWeight)
+        requests = totalRequest / (row_count - 2)
+        weight = totalWeight / (row_count - 2)
+        time = totalTime / (row_count - 2)
+    return [requests, time, weight]
 
-incomesReq = []
-incomesTime = []
-incomesWeight = []
-nameOfGraph = ['Request', 'Time', 'Weight']
-for x in range(1, 4):
-    currentObjects = []
-    print(x)
-    for i in range(0, filesCounter-1):
-        currentObjects.append(scenarioName[i])
-        if x == 1:
-            incomesReq.append(totalScenarioRequest[i])
-        if x == 2:
-            incomesTime.append(totalScenarioTime[i])
-        if x == 3:
-            incomesWeight.append(totalScenarioWeight[i])
-    
-    y_pos = np.arange(len(currentObjects))
-    if x == 1:
-        plt.bar(y_pos, incomesReq, align='center', color=['red', 'blue', 'yellow', 'black'])
-    if x == 2:
-        plt.bar(y_pos, incomesTime, align='center', color=['red', 'blue', 'yellow', 'black'])
-    if x == 3:
-        plt.bar(y_pos, incomesWeight, align='center', color=['red', 'blue', 'yellow', 'black'])
-    plt.xticks(y_pos, currentObjects)
-    plt.ylabel('scale')
-    plt.xlabel('file name')
-    plt.title(nameOfGraph[x-1])
+
+def plot_results_to_bar_charts(filename, requests, time, weight):
+    # REQUESTS plotting:
+    y_pos = np.arange(len(filename))
+    plt.bar(y_pos, requests, align='center', alpha=0.5, color=['red', 'blue', 'yellow', 'black'])
+    plt.xticks(y_pos, filename)
+    plt.title('Requests:')
     plt.show()
 
-# print(filesCounter)
-# print("total wight:" + str(totalScenarioWeight) +"\ntotal time:" + str(totalScenarioTime) + "\ntotal request:" + str(totalScenarioRequest))
-# incomes = [totalScenarioRequest, totalScenarioTime, totalScenarioWeight]
-# plt.bar(y_pos, incomes, align='center')
-# plt.xticks(y_pos, objects)
-# plt.ylabel('scale')
-# plt.xlabel('data')
-# plt.title('temp')
-# plt.show()
+    # TIME plotting:
+    y_pos = np.arange(len(filename))
+    plt.bar(y_pos, time, align='center', alpha=0.5, color=['red', 'blue', 'yellow', 'black'])
+    plt.xticks(y_pos, filename)
+    plt.title('Time:')
+    plt.show()
+
+    # WEIGHT plotting:
+    y_pos = np.arange(len(filename))
+    plt.bar(y_pos, weight, align='center', alpha=0.5, color=['red', 'blue', 'yellow', 'black'])
+    plt.xticks(y_pos, filename)
+    plt.title('Weight:')
+    plt.show()
+
+def main():
+    filename = []; requests = []; time = []; weight = []
+    for file in glob.glob('*.csv'):
+        filename.append(os.fsdecode(file))
+        # Get results from each file:
+        file_result = getResult(file)
+
+        # make arrays for every parameter:
+        requests.append(file_result[0])
+        time.append(file_result[1])
+        weight.append(file_result[2])
+    print(filename)
+    plot_results_to_bar_charts(filename, requests, time, weight)
+
+if __name__ == "__main__":
+    main()
