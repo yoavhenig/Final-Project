@@ -56,7 +56,7 @@ def main():
         requests.append(file_result[0])
         time.append(file_result[1])
         weight.append(file_result[2])
-    print(filename)
+    # print(filename)
     plot_results_to_bar_charts(filename, requests, time, weight)
 
 if __name__ == "__main__":
