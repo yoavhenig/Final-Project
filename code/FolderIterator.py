@@ -4,7 +4,6 @@ import csv
 import numpy as np
 import matplotlib.pyplot as plt
 
-PATH = 'youtube_results'
 
 def getResult(file):
     with open(file, "r", encoding="utf-8", errors="ignore")as f:
