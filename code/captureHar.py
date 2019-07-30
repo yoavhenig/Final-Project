@@ -10,6 +10,7 @@ CHROME_TYPE = "google-chrome --remote-debugging-port=9222"
 # "google-chrome --remote-debugging-port=9222 -incognito" use this for incognito
 # google-chrome --remote-debugging-port=9222 --headless (--incognito)
 
+
 def har_analyzer(file, writer, folder):
     path = os.path.join(folder, file)
     with open(path, 'r', encoding='utf8') as f:
@@ -55,45 +56,14 @@ def run_har_capture(harCap, folder):
         print(harCap+file+website)
     print("finished successfully")
 
-# -------------------------------------******************------------------------------#
 
-
-def main():
-    filename_results = input("Choose filename for results\n")
-    filenam_r = filename_results + ".csv"
-    filenam_inco = filename_results + "_inco.csv"
-
-    # open chrome browser
-    chrome_init()
-
-
-    # FIRST
-    summary = open(filenam_r, 'w', newline='')
+def scenario(file, har_cap, folder):
+    summary = open(file, 'w', newline='')
     headers = ['Filename', 'Requests', 'Total Iime (Sec)', 'Total Weight (MB)']
     writer = csv.writer(summary)
     writer.writerow(headers)
 
-    harCap = "chrome-har-capturer -k -o "
-    folder = filename_results
-    run_har_capture(harCap, folder)
-    for filename in os.listdir(folder):
-        har_analyzer(filename, writer, folder)
-
-    averageR = "=AVERAGE(B2:B"+str((RUN_TIME+1))+")"
-    averageT = "=AVERAGE(C2:C"+str((RUN_TIME+1))+")"
-    averageW = "=AVERAGE(D2:D"+str((RUN_TIME+1))+")"
-    averageRow = ['Average:', averageR, averageT, averageW]
-    writer.writerow(averageRow)
-
-    # SECOND
-    summary = open(filenam_inco, 'w', newline='')
-    headers = ['Filename', 'Requests', 'Total Iime (Sec)', 'Total Weight (MB)']
-    writer = csv.writer(summary)
-    writer.writerow(headers)
-
-    harCap = "chrome-har-capturer -o "
-    folder = filename_results + '_inco'
-    run_har_capture(harCap, folder)
+    run_har_capture(har_cap, folder)
     for filename in os.listdir(folder):
         har_analyzer(filename, writer, folder)
 
@@ -102,6 +72,29 @@ def main():
     averageW = "=AVERAGE(D2:D" + str((RUN_TIME + 1)) + ")"
     averageRow = ['Average:', averageR, averageT, averageW]
     writer.writerow(averageRow)
+
+
+# -------------------------------------******************------------------------------#
+
+
+def main():
+    filename_results = input("Choose filename for results\n")
+
+    # open chrome browser
+    chrome_init()
+
+    # FIRST - regular
+    filename_r = filename_results + ".csv"
+    har_cap = "chrome-har-capturer -k -o "
+    folder = filename_results
+    scenario(filename_r, har_cap, folder)
+
+    # SECOND - incognito
+    filename_inco = filename_results + "_inco.csv"
+    har_cap = "chrome-har-capturer -o "
+    folder = filename_results + '_inco'
+    scenario(filename_inco, har_cap, folder)
+
 
 if __name__ == "__main__":
     main()
