@@ -10,8 +10,8 @@ CHROME_TYPE = "google-chrome --remote-debugging-port=9222"
 # "google-chrome --remote-debugging-port=9222 -incognito" use this for incognito
 # google-chrome --remote-debugging-port=9222 --headless (--incognito)
 
-def har_analyzer(file, writer):
-    path = os.path.join('youtube_results',file)
+def har_analyzer(file, writer, folder):
+    path = os.path.join(folder, file)
     with open(path, 'r', encoding='utf8') as f:
         har_parser = HarParser(json.loads(f.read()))
     requests = 0
@@ -38,15 +38,16 @@ def har_analyzer(file, writer):
     writer.writerow([file, requests, total_time, total_weight])
 
 
-def run_har_capture():
-    browserProcess = subprocess.Popen(CHROME_TYPE, stdout=subprocess.PIPE, shell=True)
+def chrome_init():
+    subprocess.Popen(CHROME_TYPE, stdout=subprocess.PIPE, shell=True)
     time.sleep(3)
-    if not os.path.exists('youtube_results'):
-        print("creating directory")
-        os.makedirs('youtube_results')
 
-    folder = 'youtube_results'
-    harCap = "chrome-har-capturer -o "
+
+def run_har_capture(harCap, folder):
+    if not os.path.exists(folder):
+        print("creating directory")
+        os.makedirs(folder)
+
     website = " https://youtube.com"
     for i in range(0,RUN_TIME):
         file = "/res_{}.har".format(i)
@@ -60,18 +61,45 @@ def run_har_capture():
 def main():
     filename_results = input("Choose filename for results\n")
     filenam_r = filename_results + ".csv"
+    filenam_inco = filename_results + "_inco.csv"
+
+    # open chrome browser
+    chrome_init()
+
+
+    # FIRST
     summary = open(filenam_r, 'w', newline='')
     headers = ['Filename', 'Requests', 'Total Iime (Sec)', 'Total Weight (MB)']
     writer = csv.writer(summary)
     writer.writerow(headers)
 
-    run_har_capture()
-    for filename in os.listdir('youtube_results'):
-        har_analyzer(filename, writer)
+    harCap = "chrome-har-capturer -k -o "
+    folder = filename_results
+    run_har_capture(harCap, folder)
+    for filename in os.listdir(folder):
+        har_analyzer(filename, writer, folder)
 
     averageR = "=AVERAGE(B2:B"+str((RUN_TIME+1))+")"
     averageT = "=AVERAGE(C2:C"+str((RUN_TIME+1))+")"
     averageW = "=AVERAGE(D2:D"+str((RUN_TIME+1))+")"
+    averageRow = ['Average:', averageR, averageT, averageW]
+    writer.writerow(averageRow)
+
+    # SECOND
+    summary = open(filenam_inco, 'w', newline='')
+    headers = ['Filename', 'Requests', 'Total Iime (Sec)', 'Total Weight (MB)']
+    writer = csv.writer(summary)
+    writer.writerow(headers)
+
+    harCap = "chrome-har-capturer -o "
+    folder = filename_results + '_inco'
+    run_har_capture(harCap, folder)
+    for filename in os.listdir(folder):
+        har_analyzer(filename, writer, folder)
+
+    averageR = "=AVERAGE(B2:B" + str((RUN_TIME + 1)) + ")"
+    averageT = "=AVERAGE(C2:C" + str((RUN_TIME + 1)) + ")"
+    averageW = "=AVERAGE(D2:D" + str((RUN_TIME + 1)) + ")"
     averageRow = ['Average:', averageR, averageT, averageW]
     writer.writerow(averageRow)
 
