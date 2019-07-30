@@ -48,7 +48,7 @@ def plot_results_to_bar_charts(filename, requests, time, weight):
 def main():
     filename = []; requests = []; time = []; weight = []
     for file in glob.glob('*.csv'):
-        filename.append(os.fsdecode(file))
+        filename.append(os.fsdecode(file)[:-4])
         # Get results from each file:
         file_result = getResult(file)
 
