@@ -1,3 +1,15 @@
-browsermob_proxy==0.8.0
-haralyzer==1.6.0
-selenium==3.141.0
+sudo apt-get install npm
+sudo apt-get install node
+sudo apt install nodejs
+sudo apt install nodejs-legacy
+sudo npm install -g ./
+sudo npm install -g chrome-har-capturer
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
+sudo n latest
+
+sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
+sudo pip install pip --upgrade
+sudo pip install haralyzer
+(haralyzer==1.6.0)
