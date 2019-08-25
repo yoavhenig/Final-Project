@@ -1,3 +1,5 @@
+sudo apt install python3-pip
+sudo apt install pip
 sudo apt-get install npm
 sudo apt-get install node
 sudo apt install nodejs
@@ -10,6 +12,6 @@ sudo n stable
 sudo n latest
 
 sudo python3 -m pip uninstall pip && sudo apt install python3-pip --reinstall
-sudo pip install pip --upgrade
-sudo pip install haralyzer
+sudo python3 -m pip install pip --upgrade
+sudo python3 -m pip install haralyzer
 (haralyzer==1.6.0)
