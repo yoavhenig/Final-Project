@@ -26,21 +26,21 @@ def getResult(file):
 def plot_results_to_bar_charts(filename, requests, time, weight):
     # REQUESTS plotting:
     y_pos = np.arange(len(filename))
-    plt.bar(y_pos, requests, align='center', alpha=0.5, color=['red', 'blue', 'yellow', 'black'])
+    plt.bar(y_pos, requests, align='center', alpha=0.5, color=['red', 'orange', 'gray', 'black'])
     plt.xticks(y_pos, filename)
     plt.title('Requests:')
     plt.show()
 
     # TIME plotting:
     y_pos = np.arange(len(filename))
-    plt.bar(y_pos, time, align='center', alpha=0.5, color=['red', 'blue', 'yellow', 'black'])
+    plt.bar(y_pos, time, align='center', alpha=0.5, color=['red', 'orange', 'gray', 'black'])
     plt.xticks(y_pos, filename)
     plt.title('Time:')
     plt.show()
 
     # WEIGHT plotting:
     y_pos = np.arange(len(filename))
-    plt.bar(y_pos, weight, align='center', alpha=0.5, color=['red', 'blue', 'yellow', 'black'])
+    plt.bar(y_pos, weight, align='center', alpha=0.5, color=['red', 'orange', 'gray', 'black'])
     plt.xticks(y_pos, filename)
     plt.title('Weight:')
     plt.show()
@@ -56,7 +56,6 @@ def main():
         requests.append(file_result[0])
         time.append(file_result[1])
         weight.append(file_result[2])
-    # print(filename)
     plot_results_to_bar_charts(filename, requests, time, weight)
 
 if __name__ == "__main__":
