@@ -31,14 +31,14 @@ def plot_results_to_bar_charts(filename, requests, time, weight):
     plt.title('Requests:')
     # Text on the top of each barplot
     for i in range(len(filename)):
-        plt.text(x=y_pos[i] + 0.15, y=requests[i] + 0.1, s=requests[i], size=6)
+        plt.text(x=y_pos[i] + 0.15, y=requests[i] + 0.1, s=round(requests[i], 3), size=6)
     plt.show()
 
     # TIME plotting:
     y_pos = np.arange(len(filename))
     plt.bar(y_pos, time, align='center', alpha=0.5, color=['red', 'orange', 'gray', 'black'])
     plt.xticks(y_pos, filename)
-    plt.title('Time:')
+    plt.title('Time (seconds):')
     # Text on the top of each barplot
     for i in range(len(filename)):
         plt.text(x=y_pos[i] + 0.05, y=time[i] + 0.005, s=round(time[i], 3), size=6)
@@ -48,7 +48,7 @@ def plot_results_to_bar_charts(filename, requests, time, weight):
     y_pos = np.arange(len(filename))
     plt.bar(y_pos, weight, align='center', alpha=0.5, color=['red', 'orange', 'gray', 'black'])
     plt.xticks(y_pos, filename)
-    plt.title('Weight:')
+    plt.title('Weight (MB):')
     # Text on the top of each barplot
     for i in range(len(filename)):
         plt.text(x=y_pos[i] + 0.05, y=weight[i] + 0.005, s=round(weight[i], 3), size=6)
