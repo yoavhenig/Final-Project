@@ -3,6 +3,10 @@
 ##### Uriel Fluss, Levi Dworkin, Ori Moldovan, Yoav Henig
 <br />
 
+
+Measuring QUIC - google new protocol performance compare to known protocols (h2).<br />
+<br />
+
     In order to measure the QUIC protocol we need to consider a few things: <br />
     - QUIC works only with Google servers and client (Chrome)
     - QUIC works with TLS1.3 - all the connections must be with certificates
@@ -10,8 +14,6 @@
     - The HTTP2.0 scenario should be identical
 <br />
 
-Measuring QUIC - google new protocol performance compare to known protocols (h2).<br />
-<br />
 We use the *__chrome-har-capturer__* linux command - from
 [here][1]
 , token from
