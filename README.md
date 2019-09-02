@@ -25,8 +25,11 @@ To measure the protocol performance we decided to compare 3 things: <br />
 - Total page and requests weight
 All these 3 things can be found in the HAR file. The data analyze from the HAR's files made by the haralyzer python library:
 
+
     from haralyzer import HarParser
 We extract the results into a program report file.
+The data bar chart made with matplotlib python library:
 
+    import matplotlib.pyplot
 [1]:https://github.com/cyrus-and/chrome-har-capturer
 [2]:https://stackoverflow.com/questions/57081847/export-har-file-using-chrome-quic-protocol-https
