@@ -25,9 +25,9 @@ To measure the protocol performance we decided to compare 3 things: <br />
 - Total page load time
 - Total page and requests weight
 All these 3 things can be found in the HAR file. The data analyze from the HAR's files made by the haralyzer python library:<br />
-
-    from haralyzer import HarParser
-
+```
+from haralyzer import HarParser
+```
 We extract the results into a program report file.
 The data bar chart made with matplotlib python library:<br />
 
