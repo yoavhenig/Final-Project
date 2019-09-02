@@ -1,5 +1,5 @@
 # Final-Project
-### Computer Science final project
+### Computer Science
 ##### Uriel Fluss, Levi Dworkin, Ori Moldovan, Yoav Henig
 <br />
 
@@ -19,6 +19,11 @@ We use the *__chrome-har-capturer__* linux command - from
 [these][2]
 question.
 <br />
+To measure the protocol performance we decided to compare 3 things: <br />
+- Number of requests
+- Total page load time
+- Total page and requests weight
+All these 3 things can be found in the HAR file. The data analyze from the HAR's files made by the haralyzer python library:
 
     from haralyzer import HarParser
 We extract the results into a program report file.
