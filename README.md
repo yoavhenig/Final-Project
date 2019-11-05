@@ -43,7 +43,7 @@ python library:
     import matplotlib.pyplot
 The results are very interesting. Even though the requests number and total weight was less or more identical - the total time parameter measuring showed some serious suprises:<br />
 ![alt text](https://github.com/yoavhenig/Final-Project/blob/master/Final-Report/Images/conclusionGraph.png)
-![alt text](https://github.com/yoavhenig/Final-Project/blob/master/Final-Report/Images/conclusion-inco%20graph.png)
+![alt text](https://github.com/yoavhenig/Final-Project/blob/master/Final-Report/Images/conclusionIncoGraph.png)
 
 [1]:https://github.com/cyrus-and/chrome-har-capturer
 [2]:https://stackoverflow.com/questions/57081847/export-har-file-using-chrome-quic-protocol-https
