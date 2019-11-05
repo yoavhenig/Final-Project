@@ -6,7 +6,7 @@
 
 Measuring QUIC - google new protocol performance compare to known protocols (h2).<br />
 <br />
-In order to measure the QUIC protocol we considered few things: <br />
+In order to measure the QUIC protocol performance we considered few things: <br />
 - QUIC works only with Google servers and client (Chrome)
 - QUIC works with TLS1.3 - all the connections must be with certificates
 - To measure QUIC performance we should sniff the data through pcap files or HAR
